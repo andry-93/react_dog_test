@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import fetch from 'node-fetch';
 import Breed from './Breed';
 import setBreedAction from '../actions/actionBreed';
 
@@ -28,10 +29,11 @@ class BreedList extends Component {
 
   render() {
     const { breeds, isLoading, error } = this.state;
+    const { props } = this;
     // const breedElements = breeds.slice(0, 12).map((breed)=>
     const breedElements = breeds.slice(0, 24).map(breed => (
       <div key={breed} className="col-md-4 col-lg-3">
-        <Breed breed={breed} setBreed={this.props.setBreedFunction} />
+        <Breed breed={breed} setBreed={props.setBreedFunction} />
       </div>
     ));
     if (error) {
@@ -56,7 +58,7 @@ class BreedList extends Component {
 
 function mapStateToProps(state) {
   return {
-    breedActive: state.breedInfo.breedActive
+    breedActive: state.breedInfo.breedActive,
   };
 }
 
@@ -64,7 +66,7 @@ function mapDispatchToProps(dispatch) {
   return {
     setBreedFunction: (breedActive) => {
       dispatch(setBreedAction(breedActive));
-    }
+    },
   };
 }
 

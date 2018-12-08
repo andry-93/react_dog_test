@@ -34,6 +34,7 @@
   "dependencies": {
     "express": "^4.16.4",
     "loadable-components": "^2.2.3",
+    "node-fetch": "^2.3.0",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-infinite-scroller": "^1.2.2",

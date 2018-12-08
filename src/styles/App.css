@@ -20,14 +20,29 @@ main {
 }
 .gallery a {
     overflow: hidden;
+    position: relative;
     opacity: 1;
     transition: opacity .5s linear 0s;
     height: 200px;
     background-size: cover;
     background-position: center;
+    color: #fff;
 }
 .gallery a:hover {
     opacity: .8;
+}
+.gallery .view {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0,0,0,.5);
+    padding: 5px 10px;
+    opacity: 0;
+    transition: opacity .5s linear 0s;
+}
+.gallery a:hover .view {
+    opacity: 1;
 }
 footer {
     position: fixed;

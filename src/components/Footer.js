@@ -5,21 +5,7 @@ export default function Footer() {
     <footer className="text-muted">
       <div className="container-fluid">
         <p className="float-right">
-          <a
-            id="scroll-up"
-            href="#"
-            onClick={(event) => {
-              event = event || window.event;
-              if (event.preventDefault) {
-                event.preventDefault();
-              } else {
-                event.returnValue = false;
-              }
-              document.body.scrollTop = document.documentElement.scrollTop = 0;
-            }}
-          >
-Back to top
-          </a>
+          <a href="tel: +375298545681">+375 (29) 854-56-81</a>
         </p>
         <p>&copy; A. V. Zayats, 2018</p>
       </div>

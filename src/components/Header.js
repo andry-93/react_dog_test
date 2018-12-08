@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
@@ -9,15 +10,16 @@ export default function Header() {
             <div className="col-sm-8 col-md-7 col-lg-9 py-4">
               <h4 className="text-white">About</h4>
               <p className="text-muted">
-A test using the
+                A test using the
+                {' '}
                 <a
                   href="https://dog.ceo/dog-api/"
                   target="_new"
                 >
-dog-api
+                  dog-api
                 </a>
                 {' '}
-library.
+                library.
               </p>
             </div>
             <div className="col-sm-4 offset-md-1 col-lg-2 py-4">
@@ -29,7 +31,7 @@ library.
                     className="text-white"
                     target="_new"
                   >
-linkedine
+                    linkedine
                   </a>
                 </li>
                 <li><a href="tel: +375298545681" className="text-white">+375 (29) 854-56-81</a></li>
@@ -41,7 +43,7 @@ linkedine
       </div>
       <div className="navbar navbar-dark bg-dark shadow-sm">
         <div className="container-fluid d-flex justify-content-between">
-          <a href="./" className="navbar-brand d-flex align-items-center">
+          <Link to="/" className="navbar-brand d-flex align-items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="20"
@@ -60,7 +62,7 @@ linkedine
               <circle cx="12" cy="13" r="4" />
             </svg>
             <strong>Dog breeds</strong>
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"

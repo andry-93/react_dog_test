@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import fetch from 'node-fetch';
 import Dog from './Dog';
 
 export default class DogList extends Component {
@@ -12,8 +13,9 @@ export default class DogList extends Component {
   }
 
   componentDidMount() {
+    const { props } = this;
     this.setState({ isLoading: true });
-    fetch(`https://dog.ceo/api/breed/${this.props.match.params.breedActive}/images`)
+    fetch(`https://dog.ceo/api/breed/${props.match.params.breedActive}/images`)
       .then((response) => {
         if (response.ok) {
           return response.json();
@@ -37,14 +39,17 @@ export default class DogList extends Component {
     if (isLoading) {
       return <p>Loading ...</p>;
     }
-
+    const { props } = this;
     return (
       <main role="main">
         <div className="album py-5 bg-light">
           <div className="container-fluid">
             <div className="row gallery">
               <div className="col-md-12">
-                <h1>{this.props.match.params.breedActive[0].toUpperCase() + this.props.match.params.breedActive.substring(1)}</h1>
+                <h1>
+                  {props.match.params.breedActive[0].toUpperCase()
+                  + props.match.params.breedActive.substring(1)}
+                </h1>
               </div>
               {dogElements}
             </div>
