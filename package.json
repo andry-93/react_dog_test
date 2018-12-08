@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server --mode development --hot --inline",
-    "build": "webpack --mode production"
+    "build": "webpack --mode production",
+    "distserver": "node server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@babel/core": "^7.1.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.1.0",
     "@babel/preset-react": "^7.0.0",
     "babel-eslint": "^10.0.1",
@@ -30,6 +32,8 @@
     "webpack-dev-server": "^3.1.9"
   },
   "dependencies": {
+    "express": "^4.16.4",
+    "loadable-components": "^2.2.3",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
     "react-infinite-scroller": "^1.2.2",

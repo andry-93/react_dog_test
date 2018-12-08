@@ -12,10 +12,6 @@ export default class Breed extends Component {
     };
   }
 
-  onBtnClick(event) {
-    return this.props[`setBreed(${event.target.name})`];
-  }
-
   componentDidMount() {
     this.setState({ isLoading: true });
     fetch(`https://dog.ceo/api/breed/${this.props.breed}/images/random`)
@@ -27,6 +23,10 @@ export default class Breed extends Component {
       })
       .then(data => this.setState({ img: data.message, isLoading: false }))
       .catch(error => this.setState({ error, isLoading: false }));
+  }
+
+  onBtnClick(event) {
+    return this.props[`setBreed(${event.target.name})`];
   }
 
   render() {
@@ -45,7 +45,7 @@ export default class Breed extends Component {
           <p className="card-text">{this.props.breed[0].toUpperCase() + this.props.breed.substring(1)}</p>
           <div className="d-flex justify-content-between align-items-center">
             <div className="btn-group">
-              <Link to={`/breeds/${this.props.breed}`} className="btn btn-sm btn-outline-secondary" onClick={this.onBtnClick}>View Album</Link>
+              <Link to={`/${this.props.breed}`} className="btn btn-sm btn-outline-secondary" onClick={this.onBtnClick}>View Album</Link>
             </div>
           </div>
         </div>
