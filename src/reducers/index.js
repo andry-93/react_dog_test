@@ -1,8 +1,8 @@
-import { combineReducers } from "redux";
-import breedInfo from "./info";
+import { combineReducers } from 'redux';
+import breedInfo from './info';
 
 const rootReducer = combineReducers({
-    breedInfo
+  breedInfo,
 });
 
-export default rootReducer
+export default rootReducer;
