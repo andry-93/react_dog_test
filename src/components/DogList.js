@@ -28,11 +28,6 @@ export default class DogList extends Component {
 
   render() {
     const { dogs, isLoading, error } = this.state;
-    const dogElements = dogs.slice(0, 24).map(dog => (
-      <div key={dog} className="col-md-4 col-lg-3">
-        <Dog dog={dog} />
-      </div>
-    ));
     if (error) {
       return <p className="bg-warning .text-danger">{error.message}</p>;
     }
@@ -40,6 +35,11 @@ export default class DogList extends Component {
       return <p>Loading ...</p>;
     }
     const { props } = this;
+    const dogElements = dogs.slice(0, 24).map(dog => (
+      <div key={dog} className="col-md-4 col-lg-3">
+        <Dog dog={dog} />
+      </div>
+    ));
     return (
       <main role="main">
         <div className="album py-5 bg-light">

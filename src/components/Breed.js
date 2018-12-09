@@ -10,21 +10,27 @@ export default class Breed extends Component {
       img: [],
       isLoading: false,
       error: null,
+      isMounted: false,
     };
   }
 
   componentDidMount() {
-    this.setState({ isLoading: true });
-    const { props } = this;
-    fetch(`https://dog.ceo/api/breed/${props.breed}/images/random`)
-      .then((response) => {
-        if (response.ok) {
-          return response.json();
-        }
-        throw new Error('Something went wrong ...');
-      })
-      .then(data => this.setState({ img: data.message, isLoading: false }))
-      .catch(error => this.setState({ error, isLoading: false }));
+    this.setState({ isMounted: true }, () => {
+      const { state } = this;
+      if (state.isMounted) {
+        this.setState({ isMounted: false, isLoading: true });
+        const { props } = this;
+        fetch(`https://dog.ceo/api/breed/${props.breed}/images/random`)
+          .then((response) => {
+            if (response.ok) {
+              return response.json();
+            }
+            throw new Error('Something went wrong ...');
+          })
+          .then(data => this.setState({ img: data.message, isLoading: false }))
+          .catch(error => this.setState({ error, isLoading: false }));
+      }
+    });
   }
 
   onBtnClick(event) {
@@ -49,7 +55,7 @@ export default class Breed extends Component {
           <p className="card-text">{props.breed[0].toUpperCase() + props.breed.substring(1)}</p>
           <div className="d-flex justify-content-between align-items-center">
             <div className="btn-group">
-              <Link to={`/${props.breed}`} className="btn btn-sm btn-outline-secondary" onClick={this.onBtnClick}>View Album</Link>
+              <Link to={`/${props.breed}`} className="btn btn-sm btn-outline-secondary" name={props.breed} onClick={this.onBtnClick}>View Album</Link>
             </div>
           </div>
         </div>
