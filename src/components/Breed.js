@@ -18,8 +18,8 @@ export default class Breed extends Component {
     this.setState({ isMounted: true }, () => {
       const { state } = this;
       if (state.isMounted) {
-        this.setState({ isMounted: false, isLoading: true });
         const { props } = this;
+        this.setState({ isMounted: false, isLoading: true });
         fetch(`https://dog.ceo/api/breed/${props.breed}/images/random`)
           .then((response) => {
             if (response.ok) {
@@ -38,21 +38,32 @@ export default class Breed extends Component {
     return props.setBreed(event.target.name);
   }
 
-  render() {
-    const { img, isLoading, error } = this.state;
-    const imgElements = <div className="breed-img" style={{ backgroundImage: `url(${img})` }} />;
+  showBreed() {
+    const { state } = this;
+    if (state.error) {
+      return <p className="bg-warning text-danger">{state.error.message}</p>;
+    } if (state.isLoading) {
+      return <p>Loading...</p>;
+    }
+    if (!state.isMounted) {
+      return (
+        <div className="breed-img" style={{ backgroundImage: `url(${state.img})` }} />
+      );
+    } return <p>Loading...</p>;
+  }
+
+  toUpperTitle() {
     const { props } = this;
-    if (error) {
-      return <p className="bg-warning text-danger">{error.message}</p>;
-    }
-    if (isLoading) {
-      return <p>Loading image...</p>;
-    }
+    return props.breed[0].toUpperCase() + props.breed.substring(1);
+  }
+
+  render() {
+    const { props } = this;
     return (
       <div className="card mb-4 shadow-sm">
-        {imgElements}
+        { this.showBreed() }
         <div className="card-body">
-          <p className="card-text">{props.breed[0].toUpperCase() + props.breed.substring(1)}</p>
+          <p className="card-text">{this.toUpperTitle()}</p>
           <div className="d-flex justify-content-between align-items-center">
             <div className="btn-group">
               <Link to={`/${props.breed}`} className="btn btn-sm btn-outline-secondary" name={props.breed} onClick={this.onBtnClick}>View Album</Link>
