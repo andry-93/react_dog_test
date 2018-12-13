@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fetch from 'node-fetch';
-import Breed from './Breed';
+import { setBreedListAction } from '../actions/actionBreedList';
 import setBreedAction from '../actions/actionBreed';
-import setBreedList from '../actions/actionBreedList';
+import Breed from '../components/Breed';
 
-class BreedList extends Component {
+class BreedsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,38 +41,39 @@ class BreedList extends Component {
     });
   }
 
-  render() {
-    const { isLoading, error } = this.state;
-    if (error) {
-      return <p className="bg-warning text-danger">{error.message}</p>;
-    } if (isLoading) {
+  showList() {
+    const { props, state } = this;
+    if (state.error) {
+      return <p className="bg-warning text-danger">{state.error.message}</p>;
+    } if (state.isLoading) {
       return <p>Loading...</p>;
     }
-    const { props, state } = this;
     if (!state.isMounted) {
-      const breedElements = props.breedList.slice(0, 24).map(breed => (
+      return props.breedList.slice(0, 24).map(breed => (
         <div key={breed} className="col-md-4 col-lg-3">
           <Breed breed={breed} setBreed={props.setBreedFunction} />
         </div>
       ));
-      return (
-        <main role="main">
-          <div className="album py-5 bg-light">
-            <div className="container-fluid">
-              <div className="row">
-                {breedElements}
-              </div>
+    } return <p>Loading...</p>;
+  }
+
+  render() {
+    return (
+      <main role="main">
+        <div className="album py-5 bg-light">
+          <div className="container-fluid">
+            <div className="row">
+              { this.showList() }
             </div>
           </div>
-        </main>
-      );
-    } return <p>Loading...</p>;
+        </div>
+      </main>
+    );
   }
 }
 
 function mapStateToProps(state) {
   return {
-    breedActive: state.breedInfo.breedActive,
     breedList: state.breedInfo.breedList,
   };
 }
@@ -83,9 +84,9 @@ function mapDispatchToProps(dispatch) {
       dispatch(setBreedAction(breedActive));
     },
     setBreedListFunction: (breedList) => {
-      dispatch(setBreedList(breedList));
+      dispatch(setBreedListAction(breedList));
     },
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(BreedList);
+export default connect(mapStateToProps, mapDispatchToProps)(BreedsList);
